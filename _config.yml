@@ -1,3 +1,8 @@
 title: German Valencia
 description: Notes on software engineering
 theme: minima
+
+# Claude Code skills live in the repo but are not site content. SKILL.md has
+# YAML front matter, so without this Jekyll renders it as a published page.
+exclude:
+  - skills/
