@@ -1,0 +1,254 @@
+---
+# Forest Synth — dark theme layered over minima.
+# Empty front matter is required so Jekyll compiles this file.
+# This path shadows the minima gem's own assets/main.scss.
+---
+
+// ─── Forest Synth palette (from Corpus DESIGN.md) ────────────────────────────
+$fs-background:    #050806; // obsidian forest
+$fs-foreground:    #e2f0e7;
+$fs-card:          #0c120e; // moss charcoal
+$fs-card-fg:       #d0e6d9;
+$fs-primary:       #00e676;
+$fs-secondary-fg:  #a2c2b0;
+$fs-muted-fg:      #70927f;
+$fs-accent:        #0b2e1b;
+$fs-border:        #16241c;
+$fs-destructive:   #e04b4b;
+
+// ponytail: system mono stack instead of a webfont <link> — picks up JetBrains
+// Mono when the reader has it, falls back to the OS mono otherwise. Add a font
+// link + _includes/head.html override only if the exact typeface starts mattering.
+$fs-mono: ui-monospace, "JetBrains Mono", "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+
+// ─── Minima variable hooks ───────────────────────────────────────────────────
+// Every one of these is `!default` in the gem, so setting them here wins and
+// most of minima's own rules come out dark without being restated below.
+$base-font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$base-font-size:   17px;
+$base-line-height: 1.65;
+
+$text-color:       $fs-foreground;
+$background-color: $fs-background;
+$brand-color:      $fs-primary;
+
+$grey-color:       $fs-muted-fg;
+$grey-color-light: $fs-border;
+$grey-color-dark:  $fs-secondary-fg;
+
+$content-width:    760px;
+
+@import "minima";
+
+// ─── Overrides for what minima hardcodes light ───────────────────────────────
+
+html {
+  color-scheme: dark; // native controls, scrollbars, form widgets follow
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: $fs-accent;
+  color: $fs-primary;
+}
+
+:focus-visible {
+  outline: 2px solid $fs-primary;
+  outline-offset: 2px;
+}
+
+// Terminal precision: thin borders, a single phosphor line at the top.
+.site-header {
+  border-top: 2px solid $fs-primary;
+  border-bottom: 1px solid $fs-border;
+  background-color: $fs-card;
+}
+
+.site-title,
+.site-title:visited {
+  font-family: $fs-mono;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: $fs-primary;
+}
+
+.site-nav {
+  background-color: $fs-card;
+  border-color: $fs-border;
+
+  .page-link {
+    font-family: $fs-mono;
+    font-size: 14px;
+    color: $fs-secondary-fg;
+
+    &:hover {
+      color: $fs-primary;
+      text-decoration: none;
+    }
+  }
+
+  .menu-icon > svg {
+    fill: $fs-secondary-fg;
+  }
+}
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: $fs-primary;
+    text-shadow: 0 0 12px rgba(0, 230, 118, 0.35); // micro-glow
+  }
+}
+
+// Monospace data readouts for anything that is metadata rather than prose.
+.post-meta,
+.post-list > li > span,
+.footer-col-wrapper,
+.site-footer .footer-heading {
+  font-family: $fs-mono;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: $fs-muted-fg;
+}
+
+.post-title,
+.post-list h3 {
+  letter-spacing: -0.02em;
+  color: $fs-foreground;
+}
+
+// minima sets line-height: 1 on post titles, which clips descenders.
+.post-title {
+  line-height: 1.15;
+}
+
+.post-content {
+  h2 {
+    margin-top: $spacing-unit * 1.4;
+    padding-bottom: 6px;
+    border-bottom: 1px solid $fs-border;
+    letter-spacing: -0.015em;
+  }
+
+  h3,
+  h4 {
+    margin-top: $spacing-unit;
+    color: $fs-secondary-fg;
+  }
+}
+
+blockquote {
+  border-left: 2px solid $fs-primary;
+  background-color: $fs-card;
+  padding: 12px 16px;
+  color: $fs-secondary-fg;
+  font-style: normal;
+  letter-spacing: normal;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+code,
+pre {
+  font-family: $fs-mono;
+  background-color: $fs-card;
+  border: 1px solid $fs-border;
+  color: $fs-secondary-fg;
+}
+
+code {
+  padding: 2px 5px;
+  font-size: 0.875em;
+}
+
+pre {
+  padding: 12px 16px;
+
+  > code {
+    border: 0;
+    padding: 0;
+    background: transparent;
+  }
+}
+
+table {
+  color: $fs-card-fg;
+  border-color: $fs-border;
+
+  th {
+    background-color: $fs-accent;
+    border-color: $fs-border;
+    color: $fs-primary;
+    font-family: $fs-mono;
+    font-size: 13px;
+  }
+
+  td {
+    border-color: $fs-border;
+  }
+
+  tr:nth-child(even) {
+    background-color: $fs-card;
+  }
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $fs-border;
+}
+
+.site-footer {
+  border-top: 1px solid $fs-border;
+
+  .svg-icon {
+    fill: $fs-muted-fg;
+  }
+
+  // Long addresses overflow minima's narrow 30% footer column.
+  .contact-list {
+    overflow-wrap: break-word;
+  }
+}
+
+// ─── Syntax highlighting (rouge classes, retinted for Forest Synth) ──────────
+.highlight,
+.highlighter-rouge .highlight {
+  background-color: $fs-card;
+}
+
+.highlight {
+  .c, .c1, .cm, .cd, .cs, .cp { color: #4c6b58; font-style: italic; }
+  .k, .kc, .kd, .kn, .kp, .kr, .kt, .kv { color: $fs-primary; font-weight: 600; }
+  .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sx, .sr, .ss { color: #7fd8a0; }
+  .m, .mf, .mh, .mi, .mo, .mb, .mx, .il { color: #6fe3c5; }
+  .nf, .nb, .nc, .nn, .no, .nd, .ne { color: $fs-foreground; }
+  .na, .nv, .vc, .vg, .vi, .py { color: $fs-secondary-fg; }
+  .o, .ow, .p { color: $fs-muted-fg; }
+  .err { color: $fs-destructive; background-color: transparent; }
+  .gd { color: $fs-destructive; }
+  .gi { color: $fs-primary; }
+}
+
+// ─── Terminal scrollbars (DESIGN.md §6) ──────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: $fs-background;
+}
+::-webkit-scrollbar-thumb {
+  background: $fs-border;
+  border-radius: 3px;
+
+  &:hover {
+    background: $fs-primary;
+  }
+}
