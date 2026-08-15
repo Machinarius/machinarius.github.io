@@ -1,3 +1,7 @@
 _site/
 .jekyll-cache/
 Gemfile.lock
+
+# Lavish preview artifacts. A preview is a review surface tied to one editing
+# session, not a record — anything durable belongs in the post itself.
+.lavish/
