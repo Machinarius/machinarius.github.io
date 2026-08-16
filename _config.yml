@@ -2,7 +2,14 @@ title: German Valencia
 description: Notes on software engineering
 theme: minima
 
-# Claude Code skills live in the repo but are not site content. SKILL.md has
-# YAML front matter, so without this Jekyll renders it as a published page.
-exclude:
-  - skills/
+# No `exclude:` here on purpose. Claude Code skills are in the repo but are not
+# site content, and SKILL.md carries YAML front matter, so Jekyll would happily
+# render one as a published page. It doesn't, because they live under `.claude/`
+# and Jekyll skips dot directories before `exclude` is ever consulted — verified
+# against the deployed site, not assumed:
+#
+#   GET /.claude/skills/post-writer/SKILL.html -> 404
+#
+# The entry that used to be here named `skills/`, a path that stopped existing
+# when the skills moved; it was doing nothing. If they ever move back to a
+# visible path, an `exclude:` has to come back with them.
